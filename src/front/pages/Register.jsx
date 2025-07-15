@@ -5,28 +5,28 @@ export const Register = () => {
     return (
         <div className="container d-flex justify-content-center p-5">
             <div className="card shadow-sm p-4" style={{ maxWidth: "400px", width: "100%" }}>
-                <h3 className="text-center mb-4">Registro</h3>
+                <h3 className="text-center mb-4">Register</h3>
                 <form>
                     <div className="mb-3">
-                        <label htmlFor="email" className="form-label">Correo electrónico</label>
+                        <label htmlFor="email" className="form-label">Email</label>
                         <input type="email" className="form-control" id="email" required />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="password" className="form-label">Contraseña</label>
+                        <label htmlFor="password" className="form-label">Password</label>
                         <input type="password" className="form-control" id="password" required />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="confirm" className="form-label">Confirmar contraseña</label>
+                        <label htmlFor="confirm" className="form-label">Confirm Password</label>
                         <input type="password" className="form-control" id="confirm" required />
                     </div>
                     <div className="d-grid mb-3">
-                        <button type="submit" className="btn btn-success">Crear cuenta</button>
+                        <button type="submit" className="btn btn-success">Create account</button>
                     </div>
                 </form>
                 <div className="text-center">
-                    <small>¿Ya tienes cuenta?</small>
+                    <small className="me-1">Already have an account?</small>
                         <Link to={"/"}>
-                            <small>Regístrate aquí</small>
+                            <small>Log in here</small>
                         </Link>
                     
                 </div>
