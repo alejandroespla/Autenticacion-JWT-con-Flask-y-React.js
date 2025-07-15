@@ -8,16 +8,16 @@ export const Register = () => {
                 <h3 className="text-center mb-4">Register</h3>
                 <form>
                     <div className="mb-3">
+                        <label htmlFor="username" className="form-label">Name</label>
+                        <input type="username" className="form-control" id="username" required />
+                    </div>
+                    <div className="mb-3">
                         <label htmlFor="email" className="form-label">Email</label>
                         <input type="email" className="form-control" id="email" required />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">Password</label>
                         <input type="password" className="form-control" id="password" required />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="confirm" className="form-label">Confirm Password</label>
-                        <input type="password" className="form-control" id="confirm" required />
                     </div>
                     <div className="d-grid mb-3">
                         <button type="submit" className="btn btn-success">Create account</button>

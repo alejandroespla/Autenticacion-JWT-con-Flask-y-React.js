@@ -29,7 +29,7 @@ export const Home = () => {
 						<input type="email" className="form-control" id="email" name="email" placeholder="email@example.com" required />
 					</div>
 					<div className="mb-3">
-						<label htmlFor="password" className="form-label">Passwor</label>
+						<label htmlFor="password" className="form-label">Password</label>
 						<input type="password" className="form-control" id="password" name="password" placeholder="••••••••" required />
 					</div>
 					<div className="d-grid mb-3">
