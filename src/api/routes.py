@@ -6,6 +6,8 @@ from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 
+import bcrypt
+
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
@@ -20,3 +22,21 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
+@api.route("/user/register", methods=['POST'])
+def user_register():
+    body = request.get_json()
+    
+    new_pass = bcrypt.hashpw(body["password"].encode(), bcrypt.gensalt())
+    print(new_pass)
+
+    new_user = User()
+    new_user.email = body["email"]
+    new_user.password = new_pass.decode()
+    new_user.username = body["username"]
+    new_user.is_active = True
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify("Usuario registrado correctamente")
