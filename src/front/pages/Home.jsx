@@ -13,10 +13,8 @@ export const Home = () => {
 		const email = e.target.email.value;
 		const password = e.target.password.value;
 
-		// Aquí podrías llamar a una acción de login o API
 		console.log("Iniciando sesión con:", { email, password });
 
-		// Ejemplo: dispatch({ type: "LOGIN", payload: { email, password } });
 	};
 
 	return (
