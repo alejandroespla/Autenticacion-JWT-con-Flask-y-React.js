@@ -8,6 +8,8 @@ from flask_cors import CORS
 
 import bcrypt
 
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
@@ -40,3 +42,35 @@ def user_register():
     db.session.commit()
 
     return jsonify("Usuario registrado correctamente")
+
+@api.route("/user/login", methods= ["POST"])
+def user_login():
+        body= request.get_json()
+        user= User.query.filter_by(email=body["email"]).first()
+
+        if user is None:
+             return jsonify("Usuario no encontrado o inexistente"), 404
+        
+        if bcrypt.checkpw(body["password"].encode(), user.password.encode()):
+
+            user_serialize = user.serialize()
+
+            access_token = create_access_token(identity = str(user_serialize["id"]))
+
+
+            return jsonify({"token": access_token}), 200
+     
+       
+        return jsonify("Contraseña incorrecta"), 400
+
+@api.route("/user", methods=["GET"])
+@jwt_required()
+def get_user():
+     
+    current_user = get_jwt_identity()
+    user= User.query.get(current_user)
+
+    if user is None:
+        return jsonify("usuario no encontrado"), 404 
+
+    return jsonify({"user": user.serialize()})
