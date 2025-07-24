@@ -8,13 +8,65 @@ import { Link } from "react-router-dom";
 export const Home = () => {
 	const { store, dispatch } = useGlobalReducer();
 
-	const handleLogin = (e) => {
+	const login = async (email, password) => {
+		const resp = await fetch("https://verbose-doodle-w9x667699rgf97rg-3000.app.github.dev//api/user/login", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ email, password })
+		});
+
+		if (!resp.ok) {
+			if (resp.status === 404) throw Error("Usuario no encontrado o inexistente");
+			if (resp.status === 400) throw Error("Contraseña incorrecta");
+			throw Error("No se ha podido logear correctamente");
+		}
+
+		const data = await resp.json();
+		localStorage.setItem("jwt-token", data.token);
+		alert("Logeado con éxito");
+		return data;
+	};
+
+	const handleLogin = async (e) => {
 		e.preventDefault();
 		const email = e.target.email.value;
 		const password = e.target.password.value;
 
 		console.log("Iniciando sesión con:", { email, password });
 
+		try {
+			const data = await login(email, password);
+			console.log("Usuario autenticado:", data);
+		} catch (error) {
+			alert("Error: " + error);
+		}
+
+	};
+
+	const getMyTasks = async () => {
+		const token = localStorage.getItem("jwt-token");
+
+		const resp = await fetch("https://your_api.com/protected", {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				"Authorization": "Bearer " + token
+			}
+		});
+
+		if (!resp.ok) {
+			if (resp.status === 403) {
+				throw Error("Missing or invalid token");
+			} else {
+				throw Error("There was a problem in the login request");
+			}
+		} else {
+			throw Error("Unknown error");
+		}
+
+		const data = await resp.json();
+		console.log("This is the data you requested", data);
+		return data;
 	};
 
 	return (
